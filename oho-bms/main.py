@@ -38,7 +38,9 @@ class EventStatistics(webapp.RequestHandler):
 application = webapp.WSGIApplication(
         [('/', MainPage),
          ('/save', EventSave),
-         ('/history', EventHistory)],
+         ('/history', EventHistory),
+         ('/delete', DeleteEvent),
+         ('/stat', EventStatistics)],
         debug = True)
 
 def main():
