@@ -1,8 +1,148 @@
 {% include 'header.html' %}
 
+<div class="row-fluid">
+<div class="span12">
+    <a href="#pee" class="btn btn-large btn-block" type="button">おしっこ</a><br>
+    <a href="#boo" class="btn btn-large btn-block" type="button">うんち</a><br>
+    <a href="#peeboo" class="btn btn-large btn-block" type="button">おしっこ＆うんち</a><br>
+    <a href="#milk" class="btn btn-large btn-block" type="button">母乳</a><br>
+    <a href="#formula" class="btn btn-large btn-block" type="button">ミルク</a><br>
+    <a href="#other" class="btn btn-large btn-block" type="button">その他</a><br>
+</div>
+</div>
 
-test
+<a name="pee"></a>
+<br><br>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="pee">
+    <input type="date" name="date"><br>
+    <input type="time" name="time"><br>
+    <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn" name="value" value="3">◎</button>
+        <button type="button" class="btn" name="value" value="2">◯</button>
+        <button type="button" class="btn" name="value" value="1">△</button>
+    </div>
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
 
+<a name="boo"></a>
+<br><br>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="boo">
+    <input type="date" name="date"><br>
+    <input type="time" name="time"><br>
+    <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn" name="value" value="3">◎</button>
+        <button type="button" class="btn" name="value" value="2">◯</button>
+        <button type="button" class="btn" name="value" value="1">△</button>
+    </div>
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
+
+<a name="peeboo"></a>
+<br><br>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="peeboo">
+    <input type="date" name="date"><br>
+    <input type="time" name="time"><br>
+    尿<div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn" name="value" value="3">◎</button>
+        <button type="button" class="btn" name="value" value="2">◯</button>
+        <button type="button" class="btn" name="value" value="1">△</button>
+    </div>
+    <br>
+    便<div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn" name="value2" value="3">◎</button>
+        <button type="button" class="btn" name="value2" value="2">◯</button>
+        <button type="button" class="btn" name="value2" value="1">△</button>
+    </div>
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
+
+<a name="milk"></a>
+<br><br>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="milk">
+    <input type="date" name="date"><br>
+    <input type="time" name="time"><br>
+    <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn" name="value" value="3">◎</button>
+        <button type="button" class="btn" name="value" value="2">◯</button>
+        <button type="button" class="btn" name="value" value="1">△</button>
+    </div>
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
+
+<a name="formula"></a>
+<br><br>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="formula">
+    <input type="date" name="date"><br>
+    <input type="time" name="time"><br>
+    <select name="value">
+        <option velue="10">10ml</option>
+        <option velue="20">20ml</option>
+        <option velue="30">30ml</option>
+        <option velue="40">40ml</option>
+        <option velue="50">50ml</option>
+        <option velue="60">60ml</option>
+        <option velue="70">70ml</option>
+        <option velue="80">80ml</option>
+        <option velue="90">90ml</option>
+        <option velue="100">100ml</option>
+        <option velue="110">110ml</option>
+        <option velue="120">120ml</option>
+        <option velue="130">130ml</option>
+        <option velue="140">140ml</option>
+        <option velue="150">150ml</option>
+        <option velue="160">160ml</option>
+        <option velue="170">170ml</option>
+        <option velue="180">180ml</option>
+        <option velue="190">190ml</option>
+        <option velue="200">200ml</option>
+    </select>
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
+
+<a name="other"></a>
+<br><br>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="other">
+    <input type="date" name="date"><br>
+    <input type="time" name="time"><br>
+    <div class="btn-group" data-toggle="buttons-radio">
+        <button type="button" class="btn" name="desc" value="split">吐戻</button>
+        <button type="button" class="btn" name="desc" value="cloth">着替</button>
+        <button type="button" class="btn" name="desc" value="bath">沐浴</button>
+        <button type="button" class="btn" name="desc" value="out">外出</button>
+        <button type="button" class="btn" name="desc" value="other">他</button>
+    </div>
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
 
 {% include 'footer.html' %}
 

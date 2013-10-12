@@ -15,6 +15,16 @@ class BabyEvent(db.Model):
     value     = db.StringProperty(multiline=False)
     enable    = db.BooleanProperty()
 
+class AbstractEvent():
+    def getModel(self,request):
+        return
+    def getEventPrintType(self):
+        return
+
+class PeeEvent(AbstractEvent):
+    def getModel(request):
+        event = BabyEvent()
+
 class BasePage(webapp.RequestHandler):
     def write_template(self, template_file, template_values):
         path = os.path.join(os.path.dirname(__file__),'template',template_file)
