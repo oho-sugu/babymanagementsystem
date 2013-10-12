@@ -13,30 +13,38 @@ class BabyEvent(db.Model):
     memo      = db.StringProperty(multiline=True)
     eventDescription = db.StringProperty(multiline=False)
     value     = db.StringProperty(multiline=False)
+    enable    = db.BooleanProperty()
 
-class MainPage(webapp.RequestHandler):
+class BasePage(webapp.RequestHandler):
+    def write_template(self, template_file, template_values):
+        path = os.path.join(os.path.dirname(__file__),'template',template_file)
+        self.response.out.write(template.render(path, template_values))
+
+class MainPage(BasePage):
     def get(self):
         template_values = {
                 }
-        path = os.path.join(os.path.dirname(__file__),'template','index.html')
-        self.response.out.write(template.render(path, template_values))
+        self.write_template('index.html',template_values)
 
-class EventSave(webapp.RequestHandler):
+class EventSave(BasePage):
     def post(self):
-        self.response.out.write('<html><body>test</body></html>')
         self.redirect('/')
 
-class EventHistory(webapp.RequestHandler):
+class EventHistory(BasePage):
     def get(self):
-        self.response.out.write('<html><body>test</body></html>')
+        template_values = {
+                }
+        self.write_template('history.html',template_values)
 
-class DeleteEvent(webapp.RequestHandler):
+class DeleteEvent(BasePage):
     def get(self):
-        self.response.out.write('<html><body>test</body></html>')
+        self.redirect('/history')
 
-class EventStatistics(webapp.RequestHandler):
+class EventStatistics(BasePage):
     def get(self):
-        self.response.out.write('<html><body>test</body></html>')
+        template_values = {
+                }
+        self.write_template('stat.html',template_values)
 
 application = webapp.WSGIApplication(
         [('/', MainPage),
