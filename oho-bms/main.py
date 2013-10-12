@@ -10,6 +10,9 @@ from google.appengine.ext.webapp import template
 class BabyEvent(db.Model):
     eventType = db.StringProperty(multiline=False)
     timestamp = db.DateTimeProperty()
+    memo      = db.StringProperty(multiline=True)
+    eventDescription = db.StringProperty(multiline=False)
+    value     = db.StringProperty(multiline=False)
 
 class MainPage(webapp.RequestHandler):
     def get(self):
