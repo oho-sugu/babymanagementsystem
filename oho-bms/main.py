@@ -12,7 +12,6 @@ class BabyEvent(db.Model):
     eventType = db.StringProperty(multiline=False)
     timestamp = db.DateTimeProperty()
     memo      = db.StringProperty(multiline=True)
-    eventDescription = db.StringProperty(multiline=False)
     value     = db.StringProperty(multiline=False)
     enable    = db.BooleanProperty()
 
@@ -34,22 +33,11 @@ class MainPage(BasePage):
 class EventSave(BasePage):
     def post(self):
         etype = self.request.get('type')
-        if etype == 'pee':
+        if etype == 'pee' or etype == 'boo' or etype == 'milk' or etype == 'formula':
             event = BabyEvent()
             event.eventType = etype
             event.timestamp = datetime.strptime(self.request.get('date') + ' ' + self.request.get('time'), '%Y-%m-%d %H:%M')
             event.memo = self.request.get('memo')
-            event.eventDescription = ''
-            event.value = self.request.get('value')
-            event.enable = True
-            event.put()
-
-        elif etype == 'boo':
-            event = BabyEvent()
-            event.eventType = etype
-            event.timestamp = datetime.strptime(self.request.get('date') + ' ' + self.request.get('time'), '%Y-%m-%d %H:%M')
-            event.memo = self.request.get('memo')
-            event.eventDescription = ''
             event.value = self.request.get('value')
             event.enable = True
             event.put()
@@ -59,7 +47,6 @@ class EventSave(BasePage):
             event.eventType = 'pee'
             event.timestamp = datetime.strptime(self.request.get('date') + ' ' + self.request.get('time'), '%Y-%m-%d %H:%M')
             event.memo = self.request.get('memo')
-            event.eventDescription = ''
             event.value = self.request.get('value')
             event.enable = True
             event.put()
@@ -68,38 +55,16 @@ class EventSave(BasePage):
             event.eventType = 'boo'
             event.timestamp = datetime.strptime(self.request.get('date') + ' ' + self.request.get('time'), '%Y-%m-%d %H:%M')
             event.memo = self.request.get('memo')
-            event.eventDescription = ''
             event.value = self.request.get('value2')
-            event.enable = True
-            event.put()
-
-        elif etype == 'milk':
-            event = BabyEvent()
-            event.eventType = etype
-            event.timestamp = datetime.strptime(self.request.get('date') + ' ' + self.request.get('time'), '%Y-%m-%d %H:%M')
-            event.memo = self.request.get('memo')
-            event.eventDescription = ''
-            event.value = self.request.get('value')
-            event.enable = True
-            event.put()
-
-        elif etype == 'formula':
-            event = BabyEvent()
-            event.eventType = etype
-            event.timestamp = datetime.strptime(self.request.get('date') + ' ' + self.request.get('time'), '%Y-%m-%d %H:%M')
-            event.memo = self.request.get('memo')
-            event.eventDescription = ''
-            event.value = self.request.get('value')
             event.enable = True
             event.put()
 
         elif etype == 'other':
             event = BabyEvent()
-            event.eventType = etype
+            event.eventType = self.request.get('desc')
             event.timestamp = datetime.strptime(self.request.get('date') + ' ' + self.request.get('time'), '%Y-%m-%d %H:%M')
             event.memo = self.request.get('memo')
-            event.eventDescription = self.request.get('desc')
-            event.value = '0'
+            event.value = '-'
             event.enable = True
             event.put()
 
@@ -111,8 +76,8 @@ class EventHistory(BasePage):
         baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE ORDER BY timestamp DESC")
 
         template_values = {
-                'events': baby_events,
-                'now'   : dt_now,
+                'events'   : baby_events,
+                'dt_now'   : dt_now,
                 }
         self.write_template('history.html',template_values)
 
