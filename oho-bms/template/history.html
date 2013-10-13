@@ -1,8 +1,23 @@
 {% include 'header.html' %}
 
-
-history
-
+<table class='table'>
+    <tr>
+        <th>Time</th>
+        <th>Type</th>
+        <th>value</th>
+        <th>memo</th>
+        <th>desc</th>
+    </tr>        
+{% for event in events %}
+    <tr>
+        <td>{{ event.timestamp }}</td>
+        <td>{{ event.eventType }}</td>
+        <td>{{ event.value }}</td>
+        <td>{{ event.memo }}</td>
+        <td>{{ event.eventDescription }}</td>
+    </tr>
+{% endfor %}
+</table>
 
 {% include 'footer.html' %}
 

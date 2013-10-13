@@ -18,11 +18,12 @@
     <input type="hidden" name="type" value="pee">
     <input type="date" name="date" value="{{ nowdate }}"><br>
     <input type="time" name="time" value="{{ nowtime }}"><br>
-    <div class="btn-group" data-toggle="buttons-radio">
+    <div class="btn-group peebtn" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
         <button type="button" class="btn" name="value" value="1">△</button>
     </div>
+    <input type="hidden" id="peebtn" name="value" value="">
     <br>
     <textarea name="memo"></textarea>
     <br>
@@ -37,11 +38,12 @@
     <input type="hidden" name="type" value="boo">
     <input type="date" name="date" value="{{ nowdate }}"><br>
     <input type="time" name="time" value="{{ nowtime }}"><br>
-    <div class="btn-group" data-toggle="buttons-radio">
+    <div class="btn-group boobtn" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
         <button type="button" class="btn" name="value" value="1">△</button>
     </div>
+    <input type="hidden" id="boobtn" name="value" value="">
     <br>
     <textarea name="memo"></textarea>
     <br>
@@ -56,17 +58,19 @@
     <input type="hidden" name="type" value="peeboo">
     <input type="date" name="date" value="{{ nowdate }}"><br>
     <input type="time" name="time" value="{{ nowtime }}"><br>
-    尿<div class="btn-group" data-toggle="buttons-radio">
+    尿<div class="btn-group pee2btn" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
         <button type="button" class="btn" name="value" value="1">△</button>
     </div>
+    <input type="hidden" id="pee2btn" name="value" value="">
     <br>
-    便<div class="btn-group" data-toggle="buttons-radio">
+    便<div class="btn-group boo2btn" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value2" value="3">◎</button>
         <button type="button" class="btn" name="value2" value="2">◯</button>
         <button type="button" class="btn" name="value2" value="1">△</button>
     </div>
+    <input type="hidden" id="boo2btn" name="value2" value="">
     <br>
     <textarea name="memo"></textarea>
     <br>
@@ -81,11 +85,12 @@
     <input type="hidden" name="type" value="milk">
     <input type="date" name="date" value="{{ nowdate }}"><br>
     <input type="time" name="time" value="{{ nowtime }}"><br>
-    <div class="btn-group" data-toggle="buttons-radio">
+    <div class="btn-group milkbtn" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
         <button type="button" class="btn" name="value" value="1">△</button>
     </div>
+    <input type="hidden" id="milkbtn" name="value" value="">
     <br>
     <textarea name="memo"></textarea>
     <br>
@@ -136,13 +141,14 @@
     <input type="hidden" name="type" value="other">
     <input type="date" name="date" value="{{ nowdate }}"><br>
     <input type="time" name="time" value="{{ nowtime }}"><br>
-    <div class="btn-group" data-toggle="buttons-radio">
+    <div class="btn-group othbtn" data-toggle="buttons-radio">
         <button type="button" class="btn" name="desc" value="split">吐戻</button>
         <button type="button" class="btn" name="desc" value="cloth">着替</button>
         <button type="button" class="btn" name="desc" value="bath">沐浴</button>
         <button type="button" class="btn" name="desc" value="out">外出</button>
         <button type="button" class="btn" name="desc" value="other">他</button>
     </div>
+    <input type="hidden" id="othbtn" name="desc" value="">
     <br>
     <textarea name="memo"></textarea>
     <br>
@@ -150,5 +156,27 @@
     <input class="btn btn-large" type="submit" value="登録">
 </form>
 
+
 {% include 'footer.html' %}
+
+<script>
+    $(".peebtn .btn").click(function() {
+        $("#peebtn").val($(this).attr('value'));
+    });
+    $(".boobtn .btn").click(function() {
+        $("#boobtn").val($(this).attr('value'));
+    });
+    $(".pee2btn .btn").click(function() {
+        $("#pee2btn").val($(this).attr('value'));
+    });
+    $(".boo2btn .btn").click(function() {
+        $("#boo2btn").val($(this).attr('value'));
+    });
+    $(".milkbtn .btn").click(function() {
+        $("#milkbtn").val($(this).attr('value'));
+    });
+    $(".othbtn .btn").click(function() {
+        $("#othbtn").val($(this).attr('value'));
+    });
+</script>
 
