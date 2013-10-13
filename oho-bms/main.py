@@ -108,6 +108,12 @@ class EventHistory(BasePage):
 
 class DeleteEvent(BasePage):
     def get(self):
+        key=self.request.get('key')
+        event = BabyEvent.get(db.Key(key))
+
+        event.enable = False
+        event.put()
+
         self.redirect('/history')
 
 class EventStatistics(BasePage):
@@ -119,7 +125,7 @@ class EventStatistics(BasePage):
 class TSVOutput(BasePage):
     def get(self):
         baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE ORDER BY timestamp DESC")
-        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
         self.response.out.write("時刻\tイベント\t評価\t備考\n")
         for event in baby_events:
             self.response.out.write(event.timestamp)
