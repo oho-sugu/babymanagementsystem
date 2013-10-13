@@ -116,10 +116,26 @@ class EventStatistics(BasePage):
                 }
         self.write_template('stat.html',template_values)
 
+class TSVOutput(BasePage):
+    def get(self):
+        baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE ORDER BY timestamp DESC")
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.out.write("時刻\tイベント\t評価\t備考\n")
+        for event in baby_events:
+            self.response.out.write(event.timestamp)
+            self.response.out.write("\t")
+            self.response.out.write(event.getTypeString())
+            self.response.out.write("\t")
+            self.response.out.write(event.getValueString())
+            self.response.out.write("\t")
+            self.response.out.write(event.memo)
+            self.response.out.write("\n")
+
 application = webapp.WSGIApplication(
         [('/', MainPage),
          ('/save', EventSave),
          ('/history', EventHistory),
+         ('/tsv', TSVOutput),
          ('/delete', DeleteEvent),
          ('/stat', EventStatistics)],
         debug = True)
