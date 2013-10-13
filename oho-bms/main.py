@@ -97,12 +97,23 @@ class EventSave(BasePage):
 
 class EventHistory(BasePage):
     def get(self):
-        dt_now = datetime.today() + timedelta(hours=9)
-        baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE ORDER BY timestamp DESC")
+        display_date = self.request.get('date')
+        if not display_date:
+            dt_now = datetime.today() + timedelta(hours=9)
+        else:
+            dt_now = datetime.strptime(display_date,'%Y-%m-%d')
 
+        start = dt_now.replace(hour=0,minute=0,second=0)
+        end = dt_now.replace(hour=23,minute=59,second=59)
+        baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE AND timestamp >= :1 AND timestamp <= :2 ORDER BY timestamp DESC",start,end)
+
+        dt_yes = (dt_now + timedelta(days=-1)).strftime('%Y-%m-%d')
+        dt_tom = (dt_now + timedelta(days= 1)).strftime('%Y-%m-%d')
         template_values = {
                 'events'   : baby_events,
                 'dt_now'   : dt_now,
+                'dt_yes'   : dt_yes,
+                'dt_tom'   : dt_tom,
                 }
         self.write_template('history.html',template_values)
 

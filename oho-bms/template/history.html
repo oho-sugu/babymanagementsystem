@@ -1,6 +1,8 @@
 {% include 'header.html' %}
 
-日付：{{ dt_now|date:'Y-m-d'}}<br>
+<a href='/history?date={{ dt_yes }}'>&lt;前日</a>
+日付：{{ dt_now|date:'Y-m-d'}}
+<a href='/history?date={{ dt_tom }}'>翌日&gt;</a><br>
 
 <table class='table'>
     <tr>
