@@ -12,8 +12,8 @@
 {% for event in events %}
     <tr>
         <td>{{ event.timestamp|time:'H:i' }}</td>
-        <td>{{ event.eventType }}</td>
-        <td>{{ event.value }}</td>
+        <td>{{ event.getTypeString }}</td>
+        <td>{{ event.getValueString }}</td>
         <td>{{ event.memo }}</td>
     </tr>
 {% endfor %}

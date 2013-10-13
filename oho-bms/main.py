@@ -15,6 +15,31 @@ class BabyEvent(db.Model):
     value     = db.StringProperty(multiline=False)
     enable    = db.BooleanProperty()
 
+    typeref = {
+            'pee'    : 'おしっこ',
+            'boo'    : 'うんち',
+            'milk'   : '母乳',
+            'formula': 'ミルク',
+            'split'  : '吐戻',
+            'cloth'  : '着替',
+            'bath'   : '沐浴',
+            'out'    : '外出',
+            'other'  : '他',
+            }
+
+    def getValueString(self):
+        if self.value == '1':
+            return '△'
+        elif self.value == '2':
+            return '◯'
+        elif self.value == '3':
+            return '◎'
+        else:
+            return self.value
+    
+    def getTypeString(self):
+        return self.typeref[self.eventType]
+
 class BasePage(webapp.RequestHandler):
     def write_template(self, template_file, template_values):
         path = os.path.join(os.path.dirname(__file__),'template',template_file)
