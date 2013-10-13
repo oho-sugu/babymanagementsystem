@@ -13,10 +13,11 @@
 
 <a name="pee"></a>
 <br><br>
+<h3>おしっこ</h3>
 <form method="POST" action="/save">
     <input type="hidden" name="type" value="pee">
-    <input type="date" name="date"><br>
-    <input type="time" name="time"><br>
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
     <div class="btn-group" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
@@ -31,10 +32,11 @@
 
 <a name="boo"></a>
 <br><br>
+<h3>うんち</h3>
 <form method="POST" action="/save">
     <input type="hidden" name="type" value="boo">
-    <input type="date" name="date"><br>
-    <input type="time" name="time"><br>
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
     <div class="btn-group" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
@@ -49,10 +51,11 @@
 
 <a name="peeboo"></a>
 <br><br>
+<h3>おしっこ＆うんち</h3>
 <form method="POST" action="/save">
     <input type="hidden" name="type" value="peeboo">
-    <input type="date" name="date"><br>
-    <input type="time" name="time"><br>
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
     尿<div class="btn-group" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
@@ -73,10 +76,11 @@
 
 <a name="milk"></a>
 <br><br>
+<h3>母乳</h3>
 <form method="POST" action="/save">
     <input type="hidden" name="type" value="milk">
-    <input type="date" name="date"><br>
-    <input type="time" name="time"><br>
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
     <div class="btn-group" data-toggle="buttons-radio">
         <button type="button" class="btn" name="value" value="3">◎</button>
         <button type="button" class="btn" name="value" value="2">◯</button>
@@ -91,10 +95,11 @@
 
 <a name="formula"></a>
 <br><br>
+<h3>ミルク</h3>
 <form method="POST" action="/save">
     <input type="hidden" name="type" value="formula">
-    <input type="date" name="date"><br>
-    <input type="time" name="time"><br>
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
     <select name="value">
         <option velue="10">10ml</option>
         <option velue="20">20ml</option>
@@ -126,10 +131,11 @@
 
 <a name="other"></a>
 <br><br>
+<h3>その他</h3>
 <form method="POST" action="/save">
     <input type="hidden" name="type" value="other">
-    <input type="date" name="date"><br>
-    <input type="time" name="time"><br>
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
     <div class="btn-group" data-toggle="buttons-radio">
         <button type="button" class="btn" name="desc" value="split">吐戻</button>
         <button type="button" class="btn" name="desc" value="cloth">着替</button>
