@@ -1,7 +1,76 @@
 {% include 'header.html' %}
 
+<a href='/stat?date={{ dt_yes }}'>&lt;前日</a>
+日付：{{ dt_now|date:'Y-m-d'}}
+<a href='/stat?date={{ dt_tom }}'>翌日&gt;</a><br>
 
-stat
+<table class='table'>
+    <tr>
+        <th>イベント</th>
+        <th>評価</th>
+        <th>回数</th>
+    </tr>        
+    <tr>
+        <td rowspan=4>おしっこ</td>
+        <td>◎</td>
+        <td>{{ stats.pee.3 }}</td>
+    </tr>
+    <tr>
+        <td>◯</td>
+        <td>{{ stats.pee.2 }}</td>
+    </tr>
+    <tr>
+        <td>△</td>
+        <td>{{ stats.pee.1 }}</td>
+    </tr>
+    <tr>
+        <td>計</td>
+        <td>{{ total.pee }}</td>
+    </tr>
+
+    <tr>
+        <td rowspan=4>うんち</td>
+        <td>◎</td>
+        <td>{{ stats.boo.3 }}</td>
+    </tr>
+    <tr>
+        <td>◯</td>
+        <td>{{ stats.boo.2 }}</td>
+    </tr>
+    <tr>
+        <td>△</td>
+        <td>{{ stats.boo.1 }}</td>
+    </tr>
+    <tr>
+        <td>計</td>
+        <td>{{ total.boo }}</td>
+    </tr>
+
+    <tr>
+        <td rowspan=4>母乳</td>
+        <td>◎</td>
+        <td>{{ stats.milk.3 }}</td>
+    </tr>
+    <tr>
+        <td>◯</td>
+        <td>{{ stats.milk.2 }}</td>
+    </tr>
+    <tr>
+        <td>△</td>
+        <td>{{ stats.milk.1 }}</td>
+    </tr>
+    <tr>
+        <td>計</td>
+        <td>{{ total.milk }}</td>
+    </tr>
+
+    <tr>
+        <td>ミルク</td>
+        <td>計</td>
+        <td>{{ milktotal }}ml</td>
+    </tr>
+
+</table>
 
 
 {% include 'footer.html' %}

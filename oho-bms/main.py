@@ -129,7 +129,43 @@ class DeleteEvent(BasePage):
 
 class EventStatistics(BasePage):
     def get(self):
+        display_date = self.request.get('date')
+        if not display_date:
+            dt_now = datetime.today() + timedelta(hours=9)
+        else:
+            dt_now = datetime.strptime(display_date,'%Y-%m-%d')
+
+        start = dt_now.replace(hour=0,minute=0,second=0)
+        end = dt_now.replace(hour=23,minute=59,second=59)
+        baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE AND timestamp >= :1 AND timestamp <= :2 ORDER BY timestamp DESC",start,end)
+
+        stats = {}
+        total = {}
+        for b_event in baby_events:
+            if not b_event.eventType in stats:
+                stats[b_event.eventType] = {}
+            if not b_event.value in stats[b_event.eventType]:
+                stats[b_event.eventType][b_event.value] = 0
+            stats[b_event.eventType][b_event.value]+=1
+
+            if not b_event.eventType in total:
+                total[b_event.eventType]=0
+            total[b_event.eventType]+=1
+
+        milk_total = 0
+        if 'formula' in stats:
+            for milkvalues in stats['formula'].keys():
+                milk_total += stats['formula'][milkvalues] * int(milkvalues[:-2])
+
+        dt_yes = (dt_now + timedelta(days=-1)).strftime('%Y-%m-%d')
+        dt_tom = (dt_now + timedelta(days= 1)).strftime('%Y-%m-%d')
         template_values = {
+                'stats'    : stats,
+                'total'    : total,
+                'milktotal': milk_total,
+                'dt_now'   : dt_now,
+                'dt_yes'   : dt_yes,
+                'dt_tom'   : dt_tom,
                 }
         self.write_template('stat.html',template_values)
 
