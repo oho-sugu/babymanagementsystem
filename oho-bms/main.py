@@ -169,6 +169,99 @@ class EventStatistics(BasePage):
                 }
         self.write_template('stat.html',template_values)
 
+class EventAverage(BasePage):
+    def get(self):
+        from_date = self.request.get('fromdate')
+        to_date   = self.request.get('todate')
+
+        if not from_date or not to_date:
+            dt_from = datetime.today() - timedelta(days=6)
+            dt_to   = datetime.today()
+        else:
+            dt_from = datetime.strptime(from_date,'%Y-%m-%d')
+            dt_to   = datetime.strptime(to_date,'%Y-%m-%d')
+
+        dt_from = dt_from.replace(hour=0,minute=0,second=0)
+        dt_to   = dt_to.replace(hour=23,minute=59,second=59)
+
+        baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE AND timestamp >= :1 AND timestamp <= :2",dt_from,dt_to)
+
+        days = (dt_to - dt_from).days + 1
+        stats = {}
+        total = {}
+        for b_event in baby_events:
+            if not b_event.eventType in stats:
+                stats[b_event.eventType] = {}
+            if not b_event.value in stats[b_event.eventType]:
+                stats[b_event.eventType][b_event.value] = 0
+            stats[b_event.eventType][b_event.value]+=1
+
+            if not b_event.eventType in total:
+                total[b_event.eventType]=0
+            total[b_event.eventType]+=1
+
+        milk_total = 0
+        if 'formula' in stats:
+            for milkvalues in stats['formula'].keys():
+                milk_total += stats['formula'][milkvalues] * int(milkvalues[:-2])
+
+        template_values = {
+                'stats'    : stats,
+                'total'    : total,
+                'milktotal': milk_total,
+                'dt_from'  : dt_from.date(),
+                'dt_to'    : dt_to.date(),
+                'days'     : days,
+                }
+        self.write_template('avg.html',template_values)
+
+class EventGraph(BasePage):
+    def get(self):
+        from_date = self.request.get('fromdate')
+        to_date   = self.request.get('todate')
+
+        if not from_date or not to_date:
+            dt_from = datetime.today() - timedelta(weeks=1)
+            dt_to   = datetime.today()
+        else:
+            dt_from = datetime.strptime(from_date,'%Y-%m-%d')
+            dt_to   = datetime.strptime(to_date,'%Y-%m-%d')
+
+        dt_from = dt_from.replace(hour=0,minute=0,second=0)
+        dt_to   = dt_to.replace(hour=23,minute=59,second=59)
+
+        baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE AND timestamp >= :1 AND timestamp <= :2",dt_from,dt_to)
+
+        days = (dt_to - dt_from).days
+        stats = {}
+        total = {}
+        for b_event in baby_events:
+            if not b_event.eventType in stats:
+                stats[b_event.eventType] = {}
+            if not b_event.value in stats[b_event.eventType]:
+                stats[b_event.eventType][b_event.value] = 0
+            stats[b_event.eventType][b_event.value]+=1
+
+            if not b_event.eventType in total:
+                total[b_event.eventType]=0
+            total[b_event.eventType]+=1
+
+        milk_total = 0
+        if 'formula' in stats:
+            for milkvalues in stats['formula'].keys():
+                milk_total += stats['formula'][milkvalues] * int(milkvalues[:-2])
+        milk_total = int(milk_total / days)
+
+        template_values = {
+                'stats'    : stats,
+                'total'    : total,
+                'milktotal': milk_total,
+                'dt_from'  : dt_from.date(),
+                'dt_to'    : dt_to.date(),
+                'days'     : days,
+                }
+        self.write_template('avg.html',template_values)
+
 class TSVOutput(BasePage):
     def get(self):
         display_date = self.request.get('date')
@@ -198,7 +291,10 @@ application = webapp.WSGIApplication(
          ('/history', EventHistory),
          ('/tsv', TSVOutput),
          ('/delete', DeleteEvent),
-         ('/stat', EventStatistics)],
+         ('/stat', EventStatistics),
+         ('/avg', EventAverage),
+         ('/graph', EventGraph),
+         ],
         debug = True)
 
 def main():

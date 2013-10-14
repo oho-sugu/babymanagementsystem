@@ -1,0 +1,94 @@
+{% include 'header.html' %}
+
+<form method="GET" action="/avg">
+    <input type="date" name="fromdate" value="{{ dt_from|date:'Y-m-d' }}">00:00:00&nbsp;~&nbsp;<input type="date" name="todate" value="{{ dt_to|date:'Y-m-d' }}">23:59:59&nbsp;/&nbsp;{{ days }}&nbsp;days&nbsp;
+    <input class="btn" type="submit" value="実行">
+</form>
+
+<table class='table'>
+    <tr>
+        <th>イベント</th>
+        <th>評価</th>
+        <th>合計回数</th>
+        <th>平均</th>
+    </tr>        
+    <tr>
+        <td rowspan=4>おしっこ</td>
+        <td>◎</td>
+        <td>{{ stats.pee.3 }}</td>
+        <td>{% widthratio stats.pee.3 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>◯</td>
+        <td>{{ stats.pee.2 }}</td>
+        <td>{% widthratio stats.pee.2 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>△</td>
+        <td>{{ stats.pee.1 }}</td>
+        <td>{% widthratio stats.pee.1 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>計</td>
+        <td>{{ total.pee }}</td>
+        <td>{% widthratio total.pee days 1 %}</td>
+    </tr>
+
+    <tr>
+        <td rowspan=4>うんち</td>
+        <td>◎</td>
+        <td>{{ stats.boo.3 }}</td>
+        <td>{% widthratio stats.boo.3 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>◯</td>
+        <td>{{ stats.boo.2 }}</td>
+        <td>{% widthratio stats.boo.2 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>△</td>
+        <td>{{ stats.boo.1 }}</td>
+        <td>{% widthratio stats.boo.1 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>計</td>
+        <td>{{ total.boo }}</td>
+        <td>{% widthratio total.boo days 1 %}</td>
+    </tr>
+
+    <tr>
+        <td rowspan=4>母乳</td>
+        <td>◎</td>
+        <td>{{ stats.milk.3 }}</td>
+        <td>{% widthratio stats.milk.3 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>◯</td>
+        <td>{{ stats.milk.2 }}</td>
+        <td>{% widthratio stats.milk.2 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>△</td>
+        <td>{{ stats.milk.1 }}</td>
+        <td>{% widthratio stats.milk.1 days 1 %}</td>
+    </tr>
+    <tr>
+        <td>計</td>
+        <td>{{ total.milk }}</td>
+        <td>{% widthratio total.milk days 1 %}</td>
+    </tr>
+
+    <tr>
+        <td>ミルク</td>
+        <td>計</td>
+        <td>{{ milktotal }}ml</td>
+        <td>{% widthratio milktotal days 1 %}ml</td>
+    </tr>
+
+</table>
+
+
+{% include 'footer.html' %}
+
+
+

@@ -14,4 +14,9 @@ indexes:
   properties:
   - name: enable
   - name: timestamp
+
+- kind: BabyEvent
+  properties:
+  - name: enable
+  - name: timestamp
     direction: desc
