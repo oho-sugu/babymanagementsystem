@@ -1,0 +1,62 @@
+{% include 'header.html' %}
+<script src="/js/ccchart-min.js" charset="utf-8"></script>
+
+<form method="GET" action="/avg">
+    <input type="date" name="fromdate" value="{{ dt_from|date:'Y-m-d' }}">00:00:00&nbsp;~&nbsp;<input type="date" name="todate" value="{{ dt_to|date:'Y-m-d' }}">23:59:59&nbsp;/&nbsp;{{ days }}&nbsp;days&nbsp;
+    <input class="btn" type="submit" value="実行">
+</form>
+
+<br>
+
+<canvas id="graph"></canvas>
+<script>
+var chartdata1 = {
+  "config": {
+    "title": "各イベント回数",
+    "type": "line",
+    "lineWidth": 2,
+    "colorSet": 
+          ["red","#FF9114","#3CB000","#00A8A2","#0036C0","#C328FF","#FF34C0"],
+    "bgGradient": {
+            "direction":"vertical",
+            "from":"#687478",
+            "to":"#222222"
+        },
+  },
+
+  "data": [
+    ["日付",{{ value_str.date|safe }} ],
+    ["おしっこ",{{ value_str.pee }}],
+    ["うんち",{{ value_str.boo }}],
+    ["母乳",{{ value_str.milk }}],
+  ]
+};
+ccchart.init("graph", chartdata1)
+</script>
+<canvas id="milk"></canvas>
+<script>
+var chartdata2 = {
+  "config": {
+    "title": "ミルク量",
+    "type": "line",
+    "lineWidth": 2,
+    "colorSet": 
+          ["red","#FF9114","#3CB000","#00A8A2","#0036C0","#C328FF","#FF34C0"],
+    "bgGradient": {
+            "direction":"vertical",
+            "from":"#687478",
+            "to":"#222222"
+        },
+  },
+
+  "data": [
+    ["日付",{{ value_str.date|safe }} ],
+    ["ミルク",{{ value_str.formula }}]
+  ]
+};
+ccchart.init("milk", chartdata2)
+</script>
+
+{% include 'footer.html' %}
+
+

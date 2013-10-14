@@ -222,9 +222,11 @@ class EventGraph(BasePage):
         from_date = self.request.get('fromdate')
         to_date   = self.request.get('todate')
 
+        dt_now = datetime.today() + timedelta(hours=9)
+
         if not from_date or not to_date:
-            dt_from = datetime.today() - timedelta(weeks=1)
-            dt_to   = datetime.today()
+            dt_from = dt_now - timedelta(days=6)
+            dt_to   = dt_now
         else:
             dt_from = datetime.strptime(from_date,'%Y-%m-%d')
             dt_to   = datetime.strptime(to_date,'%Y-%m-%d')
@@ -234,35 +236,38 @@ class EventGraph(BasePage):
 
         baby_events = db.GqlQuery("SELECT * FROM BabyEvent WHERE enable = TRUE AND timestamp >= :1 AND timestamp <= :2",dt_from,dt_to)
 
-        days = (dt_to - dt_from).days
-        stats = {}
+        days = (dt_to - dt_from).days + 1
         total = {}
+        value_str = {}
+        value_str['date'] = ''
+        dt_temp = dt_from.date()
+        for key in ['pee', 'boo', 'milk', 'formula']:
+            total[key] = {}
+            value_str[key] = ''
+            for i in range(0, days):
+                total[key][dt_temp + timedelta(days=i)] = 0
+
         for b_event in baby_events:
-            if not b_event.eventType in stats:
-                stats[b_event.eventType] = {}
-            if not b_event.value in stats[b_event.eventType]:
-                stats[b_event.eventType][b_event.value] = 0
-            stats[b_event.eventType][b_event.value]+=1
+            if b_event.eventType in total:
+                if b_event.timestamp.date() in total[b_event.eventType]:
+                    if b_event.eventType == 'formula':
+                        total[b_event.eventType][b_event.timestamp.date()]+=int(b_event.value[:-2])
+                    else:
+                        total[b_event.eventType][b_event.timestamp.date()]+=1
 
-            if not b_event.eventType in total:
-                total[b_event.eventType]=0
-            total[b_event.eventType]+=1
-
-        milk_total = 0
-        if 'formula' in stats:
-            for milkvalues in stats['formula'].keys():
-                milk_total += stats['formula'][milkvalues] * int(milkvalues[:-2])
-        milk_total = int(milk_total / days)
+        for i in range(0, days):
+            dt_temp2 = (dt_temp + timedelta(days=i))
+            value_str['date'] += '"'+str(dt_temp2.month) + '/' + str(dt_temp2.day) + '",'
+            for key in ['pee', 'boo', 'milk', 'formula']:
+                value_str[key] += str(total[key][dt_temp2]) + ','
 
         template_values = {
-                'stats'    : stats,
-                'total'    : total,
-                'milktotal': milk_total,
+                'value_str'    : value_str,
                 'dt_from'  : dt_from.date(),
                 'dt_to'    : dt_to.date(),
                 'days'     : days,
                 }
-        self.write_template('avg.html',template_values)
+        self.write_template('graph.html',template_values)
 
 class TSVOutput(BasePage):
     def get(self):
