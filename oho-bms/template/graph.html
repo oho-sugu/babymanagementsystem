@@ -1,7 +1,7 @@
 {% include 'header.html' %}
 <script src="/js/ccchart-min.js" charset="utf-8"></script>
 
-<form method="GET" action="/avg">
+<form method="GET" action="/graph">
     <input type="date" name="fromdate" value="{{ dt_from|date:'Y-m-d' }}">00:00:00&nbsp;~&nbsp;<input type="date" name="todate" value="{{ dt_to|date:'Y-m-d' }}">23:59:59&nbsp;/&nbsp;{{ days }}&nbsp;days&nbsp;
     <input class="btn" type="submit" value="実行">
 </form>
