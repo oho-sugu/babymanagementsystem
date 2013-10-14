@@ -174,9 +174,11 @@ class EventAverage(BasePage):
         from_date = self.request.get('fromdate')
         to_date   = self.request.get('todate')
 
+        dt_now = datetime.today() + timedelta(hours=9)
+
         if not from_date or not to_date:
-            dt_from = datetime.today() - timedelta(days=6)
-            dt_to   = datetime.today()
+            dt_from = dt_now - timedelta(days=6)
+            dt_to   = dt_now
         else:
             dt_from = datetime.strptime(from_date,'%Y-%m-%d')
             dt_to   = datetime.strptime(to_date,'%Y-%m-%d')
