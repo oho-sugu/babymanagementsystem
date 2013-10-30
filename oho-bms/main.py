@@ -93,7 +93,7 @@ class EventSave(BasePage):
             event.enable = True
             event.put()
 
-        self.redirect('/')
+        self.redirect('/history')
 
 class EventHistory(BasePage):
     def get(self):
