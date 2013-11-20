@@ -1,13 +1,43 @@
 {% include 'header.html' %}
 
-<div class="row-fluid">
+<div class="container">
+<div class="row">
+<div class="span6">
+    <a href="#pee" class="btn btn-large btn-block" type="button">おしっこ</a>
+</div>
+<div class="span6">
+    <a href="#boo" class="btn btn-large btn-block" type="button">うんち</a>
+</div>
+</div>
+<br/>
+<div class="row">
 <div class="span12">
-    <a href="#pee" class="btn btn-large btn-block" type="button">おしっこ</a><br>
-    <a href="#boo" class="btn btn-large btn-block" type="button">うんち</a><br>
-    <a href="#peeboo" class="btn btn-large btn-block" type="button">おしっこ＆うんち</a><br>
-    <a href="#milk" class="btn btn-large btn-block" type="button">母乳</a><br>
-    <a href="#formula" class="btn btn-large btn-block" type="button">ミルク</a><br>
-    <a href="#other" class="btn btn-large btn-block" type="button">その他</a><br>
+    <a href="#peeboo" class="btn btn-large btn-block" type="button">おしっこ＆うんち</a>
+</div>
+</div>
+<br/>
+<div class="row">
+<div class="span6">
+    <a href="#milk" class="btn btn-large btn-block" type="button">母乳</a>
+</div>
+<div class="span6">
+    <a href="#formula" class="btn btn-large btn-block" type="button">ミルク</a>
+</div>
+</div>
+<br/>
+<div class="row">
+<div class="span6">
+    <a href="#out" class="btn btn-large btn-block" type="button">外出</a>
+</div>
+<div class="span6">
+    <a href="#sleep" class="btn btn-large btn-block" type="button">睡眠</a>
+</div>
+</div>
+<br/>
+<div class="row">
+<div class="span12">
+    <a href="#other" class="btn btn-large btn-block" type="button">その他</a>
+</div>
 </div>
 </div>
 
@@ -139,6 +169,44 @@
     <input class="btn btn-large" type="submit" value="登録">
 </form>
 
+<a name="out"></a>
+<br><br>
+<h3>外出</h3>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="other">
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
+    <div class="btn-group outbtn" data-toggle="buttons-radio">
+        <button type="button" class="btn active" name="desc" value="out">外出</button>
+        <button type="button" class="btn" name="desc" value="return">帰宅</button>
+    </div>
+    <input type="hidden" id="outbtn" name="desc" value="out">
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
+
+<a name="sleep"></a>
+<br><br>
+<h3>睡眠</h3>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="other">
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
+    <div class="btn-group slpbtn" data-toggle="buttons-radio">
+        <button type="button" class="btn active" name="desc" value="onset">入眠</button>
+        <button type="button" class="btn" name="desc" value="wake">起床</button>
+    </div>
+    <input type="hidden" id="slpbtn" name="desc" value="onset">
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
+
 <a name="other"></a>
 <br><br>
 <h3>その他</h3>
@@ -150,10 +218,9 @@
         <button type="button" class="btn" name="desc" value="split">吐戻</button>
         <button type="button" class="btn" name="desc" value="cloth">着替</button>
         <button type="button" class="btn" name="desc" value="bath">沐浴</button>
-        <button type="button" class="btn" name="desc" value="out">外出</button>
-        <button type="button" class="btn" name="desc" value="other">他</button>
+        <button type="button" class="btn active" name="desc" value="other">他</button>
     </div>
-    <input type="hidden" id="othbtn" name="desc" value="">
+    <input type="hidden" id="othbtn" name="desc" value="other">
     <br>
     <textarea name="memo"></textarea>
     <br>
@@ -179,6 +246,12 @@
     });
     $(".milkbtn .btn").click(function() {
         $("#milkbtn").val($(this).attr('value'));
+    });
+    $(".outbtn .btn").click(function() {
+        $("#outbtn").val($(this).attr('value'));
+    });
+    $(".slpbtn .btn").click(function() {
+        $("#slpbtn").val($(this).attr('value'));
     });
     $(".othbtn .btn").click(function() {
         $("#othbtn").val($(this).attr('value'));
