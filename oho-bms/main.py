@@ -27,6 +27,9 @@ class BabyEvent(db.Model):
             'bath': '沐浴',
             'out': '外出',
             'other': '他',
+            'return': '帰宅',
+            'onset': '入眠',
+            'wake': '起床',
         }
 
     def getValueString(self):
