@@ -40,7 +40,7 @@ class BabyEvent(db.Model):
             return self.value
     
     def getTypeString(self):
-        if self.eventType in typeref:
+        if self.eventType in self.typeref:
             return self.typeref[self.eventType]
         else:
             return ''
