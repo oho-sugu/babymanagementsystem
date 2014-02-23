@@ -17,11 +17,14 @@
 </div>
 <br/>
 <div class="row">
-<div class="span6">
+<div class="span4">
     <a href="#milk" class="btn btn-large btn-block" type="button">母乳</a>
 </div>
-<div class="span6">
+<div class="span4">
     <a href="#formula" class="btn btn-large btn-block" type="button">ミルク</a>
+</div>
+<div class="span4">
+    <a href="#babyfood" class="btn btn-large btn-block" type="button">離乳食</a>
 </div>
 </div>
 <br/>
@@ -169,6 +172,26 @@
     <input class="btn btn-large" type="submit" value="登録">
 </form>
 
+<a name="babyfood"></a>
+<br><br>
+<h3>離乳食</h3>
+<form method="POST" action="/save">
+    <input type="hidden" name="type" value="babyfood">
+    <input type="date" name="date" value="{{ nowdate }}"><br>
+    <input type="time" name="time" value="{{ nowtime }}"><br>
+    <div class="btn-group babyfoodbtn" data-toggle="buttons-radio">
+        <button type="button" class="btn" name="value" value="3">◎</button>
+        <button type="button" class="btn active" name="value" value="2">◯</button>
+        <button type="button" class="btn" name="value" value="1">△</button>
+    </div>
+    <input type="hidden" id="babyfoodbtn" name="value" value="2">
+    <br>
+    <textarea name="memo"></textarea>
+    <br>
+    <a href="/" class="btn btn-large" type="button">キャンセル</a>
+    <input class="btn btn-large" type="submit" value="登録">
+</form>
+
 <a name="out"></a>
 <br><br>
 <h3>外出</h3>
@@ -218,6 +241,14 @@
         <button type="button" class="btn" name="desc" value="split">吐戻</button>
         <button type="button" class="btn" name="desc" value="cloth">着替</button>
         <button type="button" class="btn" name="desc" value="bath">沐浴</button>
+        <button type="button" class="btn" name="desc" value="babyma">ベビマ</button>
+        <br/>
+        <button type="button" class="btn" name="desc" value="wipeface">顔拭</button>
+        <button type="button" class="btn" name="desc" value="wipebody">体拭</button>
+        <button type="button" class="btn" name="desc" value="enema">浣腸</button>
+        <button type="button" class="btn" name="desc" value="sugarwater">糖水</button>
+        <br/>
+        <button type="button" class="btn" name="desc" value="nailcut">爪切</button>
         <button type="button" class="btn active" name="desc" value="other">他</button>
     </div>
     <input type="hidden" id="othbtn" name="desc" value="other">
@@ -246,6 +277,9 @@
     });
     $(".milkbtn .btn").click(function() {
         $("#milkbtn").val($(this).attr('value'));
+    });
+    $(".babyfoodbtn .btn").click(function() {
+        $("#babyfoodbtn").val($(this).attr('value'));
     });
     $(".outbtn .btn").click(function() {
         $("#outbtn").val($(this).attr('value'));

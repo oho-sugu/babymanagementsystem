@@ -30,6 +30,13 @@ class BabyEvent(db.Model):
             'return': '帰宅',
             'onset': '入眠',
             'wake': '起床',
+            'babyma': 'ベビマ',
+            'wipeface': '顔拭',
+            'wipebody': '体拭',
+            'enema': '浣腸',
+            'sugarwater': '糖水',
+            'nailcut': '爪切',
+            'babyfood': '離乳食',
         }
 
     def getValueString(self):
@@ -69,7 +76,7 @@ class MainPage(BasePage):
 class EventSave(BasePage):
     def post(self):
         etype = self.request.get('type')
-        if etype == 'pee' or etype == 'boo' or etype == 'milk' or etype == 'formula':
+        if etype == 'pee' or etype == 'boo' or etype == 'milk' or etype == 'formula' or etype == 'babyfood':
             event = BabyEvent()
             event.eventType = etype
             event.timestamp = datetime.strptime(
