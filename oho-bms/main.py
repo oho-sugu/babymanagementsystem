@@ -1,5 +1,6 @@
 import cgi
 
+from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
@@ -50,6 +51,14 @@ class BabyEvent(db.Model):
 
 
 class BasePage(webapp.RequestHandler):
+    def login(self):
+        user = users.get_current_user()
+
+        if user:
+            return
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
+
     def write_template(self, template_file, template_values):
         path = os.path.join(os.path.dirname(__file__), 'template', template_file)
         self.response.out.write(template.render(path, template_values))
